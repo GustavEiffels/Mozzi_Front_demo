@@ -28,10 +28,9 @@ function MainHome({ onLogout }) {
   };
 
   const handleJoinEvent = () => {
-    alert('이벤트 참석하기 페이지로 이동합니다. (실제 라우팅 필요)');
-    setIsMenuOpen(false);
+    setIsMenuOpen(false); // 메뉴 닫기
+    navigate('/join-event'); // 이벤트 목록 페이지로 이동
   };
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
