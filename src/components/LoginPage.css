@@ -1,0 +1,216 @@
+/* src/LoginPage.css */
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f7f9fc;
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif,'BMDOHYEON','BMHANNAPro';
+  color: #333;
+}
+
+.login-form {
+  background-color: #ffffff;
+  padding: 45px 50px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.login-form:hover {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+h2 {
+  font-family: 'BMDOHYEON'; 
+  font-size: 3em;
+  margin-bottom: 20px;
+  color: #2c3e50;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.form-group {
+  margin-bottom: 25px;
+  text-align: left;
+  position: relative; /* 아이콘 배치를 위해 추가 */
+}
+
+.form-group label {
+  font-family: 'BMDOHYEON';
+  display: block; /* 레이블은 그대로 블록 요소로 유지 */
+  margin-bottom: 8px; /* 레이블 아래 여백 조금 줄임 */
+  font-weight: 500; /* 레이블 폰트 두께 일반으로 */
+  color: black; /* 레이블 색상 더 연하게 */
+  font-size: 1.2rem; /* 레이블 폰트 크기 약간 줄임 */
+}
+
+.form-group input[type="email"],
+.form-group input[type="password"] {
+  width: calc(100% - 28px); /* 패딩 (좌우 12px) 및 아이콘 공간(오른쪽 4px) 고려 */
+  padding: 14px 12px; /* 패딩 증가, 세로 패딩을 조금 더 주어 높이 확보 */
+  border: 1px solid #dcdcdc; /* 테두리를 더 연하게, 거의 눈에 띄지 않게 */
+  border-radius: 8px; /* 모서리 둥글기를 약간 더 */
+  font-size: 1.1em; /* 폰트 크기 약간 키움 */
+  color: #333;
+  background-color: #fcfcfc;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05); /* 미세한 내부 그림자 효과 */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus {
+  border-color: #FFA5A5;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.25), inset 0 1px 3px rgba(0, 0, 0, 0.1); /* 포커스 시 그림자 강화 */
+  background-color: #ffffff; /* 포커스 시 배경 흰색으로 */
+}
+
+/* 플레이스홀더 스타일 (더 연하게) */
+.form-group input::placeholder {
+  color: #a0a0a0;
+  font-weight: 300; /* 플레이스홀더 폰트 두께 가볍게 */
+}
+
+
+.login-button {
+  font-family: 'BMDOHYEON'; 
+  width: 100%;
+  padding: 14px;
+  background-color: #FFA5A5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.5s ease-in-out, transform 0.3s ease-in-out;
+  margin-top: 20px;
+}
+
+.login-button:hover {
+  background-color: #FF8C8C; 
+  filter: brightness(80%);
+  transform: translateY(-2px);
+}
+
+.login-button:active {
+  transform: translateY(0);
+}
+
+.error-message {
+  color: #e74c3c;
+  margin-top: 18px;
+  margin-bottom: 10px;
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+/* --- 새로 추가되는 CSS 시작 --- */
+.extra-links {
+  margin-top: 25px;
+  font-size: 0.95em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* 링크와 구분선 사이의 간격 */
+  color: #666;
+}
+
+.extra-links a {
+  color: #666; /* 기본 링크 색상 */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.extra-links a:hover {
+  color: #FFA5A5; /* 호버 시 색상 변경 */
+  text-decoration: underline;
+}
+
+.extra-links .separator {
+  color: #ccc;
+  font-size: 0.9em;
+}
+
+.social-login-section {
+  margin-top: 30px;
+  width: 100%;
+}
+
+.social-login-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+  position: relative; /* 선의 기준점 */
+}
+
+.social-login-tabs::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #eee; /* 얇은 회색 선 */
+  z-index: 0;
+}
+
+.social-login-tabs .tab-button {
+  background-color: #ffffff; /* 탭 버튼 배경을 흰색으로 */
+  border: none; /* 테두리 제거 */
+  padding: 8px 15px;
+  font-size: 0.95em;
+  font-weight: 500;
+  color: #888;
+  border-radius: 0; /* 모서리 둥글기 제거 */
+  transition: color 0.3s ease, font-weight 0.3s ease;
+  z-index: 1; /* 선 위에 오도록 */
+}
+
+.social-login-tabs .tab-button.active {
+  color: #333; /* 활성 탭 글자색 */
+  font-weight: 700; /* 활성 탭 글자 두껍게 */
+  border-bottom: 2px solid #333; /* 활성 탭 아래선 */
+  background-color: #ffffff; /* 활성 탭 배경색 (혹시 모를 경우) */
+}
+
+.social-login-tabs .tab-button:not(.active):hover {
+  color: #555;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* 아이콘 버튼 간 간격 */
+  margin-top: 20px; /* 탭과의 간격 */
+}
+
+.social-icon-button {
+  width: 55px; /* 아이콘 버튼 크기 */
+  height: 55px;
+  background-color: #ffffff; /* 배경 흰색 */
+  border: 1px solid #eee; /* 테두리 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* 가벼운 그림자 */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 0; /* 기본 패딩 제거 */
+}
+
+.social-icon-button:hover {
+  transform: translateY(-3px); /* 호버 시 약간 위로 */
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); /* 그림자 강화 */
+}
+
+.social-icon-button img {
+  width: 60%; /* 이미지 크기 조절 */
+  height: 60%;
+  object-fit: contain; /* 이미지 비율 유지 */
+}

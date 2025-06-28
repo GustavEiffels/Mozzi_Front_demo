@@ -1,11 +1,15 @@
+/* src/index.css */
+
+/* 기본 설정 초기화 */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'BMHANNAPro', 'BMDOHYEON',system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* 색상 스키마 및 배경색 설정 (라이트 모드로 강제) */
+  color-scheme: light; /* 라이트 모드로 고정 */
+  color: #213547; /* 텍스트 색상 (어둡게) */
+  background-color: #f7f9fc; /* 흰색 배경 */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,45 +17,62 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #f7f9fc; 
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 2em; /* 너무 크지 않게 조정하거나 필요 없으면 삭제 */
   line-height: 1.1;
+  color: #333; /* 검정색 계열로 변경 */
+}
+
+a {
+  font-weight: 500;
+  color: #007bff; 
+  text-decoration: underline; 
+}
+a:hover {
+  color: #0056b3;
 }
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid #ccc; /* 테두리를 좀 더 명확하게 */
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #f0f0f0; 
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: border-color 0.25s, background-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #999;
+  background-color: #e0e0e0;
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+@font-face {
+  font-family: 'BMHANNAPro'; /* 이 폰트 이름을 CSS에서 사용할 겁니다. */
+  src: url('./assets/fonts/BMHANNAPro.ttf') format('truetype'); /* .ttf 파일 경로 및 포맷 */
+  font-weight: normal;
+  font-style: bold;
+  font-display: swap; 
+}
+
+@font-face {
+  font-family: 'BMDOHYEON'; /* 이 폰트 이름을 CSS에서 사용할 겁니다. */
+  src: url('./assets/fonts/BMDOHYEON_ttf.ttf') format('truetype'); /* .ttf 파일 경로 및 포맷 */
+  font-weight: bold; /* 이 파일은 일반 두께 폰트입니다. */
+  font-style: normal;
+  font-display: swap; /* 폰트 로딩 최적화: 텍스트가 먼저 보이고 폰트 로드 후 교체 */
 }
 
 @media (prefers-color-scheme: light) {
@@ -65,4 +86,13 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.no-select {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Safari */
+  -khtml-user-select: none;    /* Konqueror HTML */
+  -moz-user-select: none;      /* Old versions of Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
 }
