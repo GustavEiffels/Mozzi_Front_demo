@@ -4,7 +4,7 @@
 ![alt text](loginPage.png)
 
 ## Main Page
-![alt text](mainPage.png)
+![alt text](mainHomePage.png)
 
 ## Create Event 
 ![alt text](CreateEvent01.png) 
