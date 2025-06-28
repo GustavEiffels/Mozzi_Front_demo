@@ -1,9 +1,9 @@
 // src/components/EventListPage.js
 import React, { useState, useEffect } from 'react';
-import './EventListPage.css'; // 새로운 CSS 파일 (아래에서 생성)
-import { useNavigate } from 'react-router-dom'; // 페이지 이동을 위한 훅
+import './EventListPage.css';
+import { useNavigate } from 'react-router-dom';
 
-// 더미 이벤트 데이터 (실제로는 API에서 가져옴)
+// 더미 이벤트 데이터 (EventDetailPage와 동일하게 유지)
 const DUMMY_EVENTS = [
   {
     id: 1,
@@ -69,7 +69,6 @@ function EventListPage() {
   const [eventsForSelectedDate, setEventsForSelectedDate] = useState([]); // 선택된 날짜의 이벤트 목록
 
   useEffect(() => {
-    // 현재 진행 중인 이벤트 필터링
     const now = new Date();
     const ongoing = DUMMY_EVENTS.filter(event => {
       const start = new Date(event.startAt);
@@ -78,12 +77,10 @@ function EventListPage() {
     });
     setOngoingEvents(ongoing);
 
-    // 컴포넌트 로드 시 오늘 날짜의 이벤트를 기본으로 표시
-    setSelectedDate(new Date());
+    setSelectedDate(new Date()); // 컴포넌트 로드 시 오늘 날짜의 이벤트를 기본으로 표시
   }, []);
 
   useEffect(() => {
-    // selectedDate가 변경될 때마다 해당 날짜의 이벤트 필터링
     if (selectedDate) {
       const events = DUMMY_EVENTS.filter(event => {
         const eventDate = new Date(event.startAt);
@@ -97,31 +94,32 @@ function EventListPage() {
     } else {
       setEventsForSelectedDate([]);
     }
-  }, [selectedDate]); // selectedDate가 변경될 때마다 실행
+  }, [selectedDate]);
 
-  // 달력 날짜 클릭 핸들러
   const handleDateClick = (day) => {
     if (day) {
       const newSelectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
       setSelectedDate(newSelectedDate);
     } else {
-      setSelectedDate(null); // 날짜 클릭 해제 또는 초기화
+      setSelectedDate(null);
     }
   };
 
-  // 달력 렌더링 함수
+  // 이벤트 항목 클릭 시 상세 페이지로 이동
+  const handleEventItemClick = (eventId) => {
+    navigate(`/event/${eventId}`);
+  };
+
   const renderCalendar = () => {
     const year = currentDate.getFullYear();
-    const month = currentDate.getMonth(); // 0-11
-    const firstDayOfMonth = new Date(year, month, 1).getDay(); // 해당 월 1일의 요일 (0=일, 6=토)
-    const daysInMonth = new Date(year, month + 1, 0).getDate(); // 해당 월의 마지막 날짜
+    const month = currentDate.getMonth();
+    const firstDayOfMonth = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
 
     const calendarDays = [];
-    // 이전 달의 빈 공간 채우기
     for (let i = 0; i < firstDayOfMonth; i++) {
       calendarDays.push(null);
     }
-    // 현재 달의 날짜 채우기
     for (let i = 1; i <= daysInMonth; i++) {
       calendarDays.push(i);
     }
@@ -152,7 +150,6 @@ function EventListPage() {
       }
     });
 
-    // 마지막 주 채우기
     if (cells.length > 0) {
       while (cells.length < 7) {
         cells.push(<td key={cells.length} className="calendar-day empty"></td>);
@@ -174,7 +171,6 @@ function EventListPage() {
     );
   };
 
-  // 월 변경 핸들러
   const changeMonth = (delta) => {
     setCurrentDate(prevDate => {
       const newDate = new Date(prevDate);
@@ -203,11 +199,11 @@ function EventListPage() {
             {ongoingEvents.length > 0 ? (
               <ul>
                 {ongoingEvents.map(event => (
-                  <li key={event.id} className="event-item">
+                  <li key={event.id} className="event-item clickable" onClick={() => handleEventItemClick(event.id)}>
                     <strong>{event.name}</strong>
                     <p>{event.content}</p>
                     <p>시간: {new Date(event.startAt).toLocaleString()} - {new Date(event.endAt).toLocaleTimeString()}</p>
-                    <p>장소: {event.locationDetail}</p>
+                    <p>장소: {event.isOnline ? '온라인' : event.locationDetail}</p>
                   </li>
                 ))}
               </ul>
@@ -225,11 +221,11 @@ function EventListPage() {
             {eventsForSelectedDate.length > 0 ? (
               <ul>
                 {eventsForSelectedDate.map(event => (
-                  <li key={event.id} className="event-item">
+                  <li key={event.id} className="event-item clickable" onClick={() => handleEventItemClick(event.id)}>
                     <strong>{event.name}</strong>
                     <p>{event.content}</p>
                     <p>시간: {new Date(event.startAt).toLocaleTimeString()} - {new Date(event.endAt).toLocaleTimeString()}</p>
-                    <p>장소: {event.locationDetail}</p>
+                    <p>장소: {event.isOnline ? '온라인' : event.locationDetail}</p>
                   </li>
                 ))}
               </ul>

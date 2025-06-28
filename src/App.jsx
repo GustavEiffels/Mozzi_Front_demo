@@ -6,7 +6,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import LoginPage from './components/LoginPage';
 import MainHome from './pages/MainHome';
 import CreateEvent from './pages/CreateEvent';
-import EventListPage from './pages/EventListPage'; // EventListPage 컴포넌트 임포트
+import EventListPage from './pages/EventListPage';
+import EventDetailPage from './components/EventDetailPage'; 
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -17,7 +18,6 @@ function App() {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    alert('로그아웃 되었습니다.');
   };
 
   return (
@@ -38,10 +38,14 @@ function App() {
             path="/create-event"
             element={isLoggedIn ? <CreateEvent /> : <Navigate to="/" replace />}
           />
-          {/* 이벤트 참석하기 페이지 라우트 추가 */}
           <Route
             path="/join-event"
             element={isLoggedIn ? <EventListPage /> : <Navigate to="/" replace />}
+          />
+          {/* 이벤트 상세 페이지 라우트 추가 */}
+          <Route
+            path="/event/:eventId" 
+            element={isLoggedIn ? <EventDetailPage /> : <Navigate to="/" replace />}
           />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
