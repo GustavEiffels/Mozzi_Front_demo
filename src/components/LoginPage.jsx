@@ -5,9 +5,9 @@ import KakaoIcon from '../assets/images/kakao.png';
 import GoogleIcon from '../assets/images/google.png';
 import NaverIcon from '../assets/images/naver.png'
 
-function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+function LoginPage({ onLoginSuccess }) {
+  const [email, setEmail] = useState('example@email.com');
+  const [password, setPassword] = useState('password123');
   const [error, setError] = useState('');
 
   const handleSubmit = (e) => {
@@ -18,8 +18,11 @@ function LoginPage() {
       return;
     }
 
-    if (email === 'test@example.com' && password === 'password123') {
-      alert('로그인 성공!');
+    if (email === 'example@email.com' && password === 'password123') {
+
+      if (onLoginSuccess) { 
+        onLoginSuccess();
+      }
       setError('');
     } else {
       setError('이메일 또는 비밀번호가 잘못되었습니다.');

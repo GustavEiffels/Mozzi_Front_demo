@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f7f9fc;
+  font-family: Arial, sans-serif;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  color: #333;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  width: 1000px;
+  max-width: 90%;
+}
+
+.button {
+  font-family: 'BMDOHYEON'; 
+  width: 100%;
+  padding: 1.2rem;
+  background-color: #FFA5A5; /* 로그인 버튼과 유사한 핑크색 계열 */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  height: 500px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button:hover {
+  background-color: #ff8c8c;
+  transform: translateY(-2px);
+}
