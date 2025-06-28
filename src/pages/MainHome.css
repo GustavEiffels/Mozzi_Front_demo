@@ -1,3 +1,5 @@
+/* src/components/MainHome.css */
+
 .container {
   display: flex;
   flex-direction: column;
@@ -6,6 +8,7 @@
   min-height: 100vh;
   background-color: #f7f9fc;
   font-family: Arial, sans-serif;
+  position: relative;
 }
 
 .title {
@@ -23,7 +26,7 @@
 }
 
 .button {
-  font-family: 'BMDOHYEON'; 
+  font-family: 'BMDOHYEON';
   width: 100%;
   padding: 1.2rem;
   background-color: #FFA5A5; /* 로그인 버튼과 유사한 핑크색 계열 */
@@ -41,4 +44,74 @@
 .button:hover {
   background-color: #ff8c8c;
   transform: translateY(-2px);
+}
+
+/* 햄버거 메뉴 관련 스타일 수정 */
+.menu-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+/* 포커스 시에도 테두리 없애기 (접근성을 위해 신중히 고려) */
+.menu-button:focus {
+  outline: none;
+}
+
+
+.menu-icon {
+  width: 30px;
+  height: 30px;
+  fill: #555;
+}
+
+.dropdown-menu {
+  position: absolute;
+  /* top 값 증가로 간격 조절 (60px -> 70px 또는 원하는 만큼) */
+  top: 70px; /* 햄버거 메뉴 아래에 위치, 간격 벌리기 */
+  right: 20px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 180px;
+  z-index: 9;
+}
+
+.dropdown-menu.hidden {
+  display: none;
+}
+
+.dropdown-item {
+  padding: 12px 15px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #333;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown-item:first-child {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.dropdown-item:last-child {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }

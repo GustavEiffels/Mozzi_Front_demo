@@ -10,10 +10,15 @@ function App() {
     setIsLoggedIn(true);
   };
 
+  const handleLogout = () => {
+    setIsLoggedIn(false)
+  };
+
+
   return (
     <div className="App">
       {isLoggedIn ? (
-        <MainHome/>
+        <MainHome onLogout={handleLogout} />
       ) : (
         <LoginPage onLoginSuccess={handleLoginSuccess} />
       )}
