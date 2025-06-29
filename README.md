@@ -1,14 +1,13 @@
 # MOZZI ROOM 
 
 ## Login Page
-![alt text](loginPage.png)
+![alt text](newLoginPage.png)
 
 ## Main Page
 ![alt text](mainHomePage.png)
 
 ## Create Event 
-![alt text](CreateEvent01.png) 
-![alt text](CreateEvent02.png)
+![alt text](CreateEvent.png)
 
 ## Event List
 ![alt text](EventList.png)
