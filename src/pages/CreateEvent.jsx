@@ -29,11 +29,8 @@ function CreateEvent() {
         [name]: type === 'checkbox' ? checked : value,
       };
 
-      // isOnline 체크박스가 변경되었을 때, locationDetail을 초기화하고 유효성 검사에서 제외
       if (name === 'isOnline' && checked) {
-        newFormData.locationDetail = ''; // 온라인 모임이면 상세 주소 초기화
-        // Optionally clear locationId if it's only for offline
-        // newFormData.locationId = ''; 
+        newFormData.locationDetail = ''; 
       }
       return newFormData;
     });
@@ -70,7 +67,6 @@ function CreateEvent() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // 실제 API 호출 로직은 여기에 들어갑니다.
       console.log('폼 데이터:', formData); // 최종 폼 데이터 확인
       alert('이벤트가 성공적으로 생성되었습니다! (실제 API 호출은 없음)');
       navigate('/');
@@ -203,7 +199,6 @@ function CreateEvent() {
           <label htmlFor="isOnline">온라인 모임입니다</label>
         </div>
 
-        {/* 상세 주소 입력 필드 (isOnline이 true일 때 비활성화) */}
         <div className="form-group">
           <label htmlFor="locationDetail">상세 주소</label>
           <input
