@@ -128,12 +128,7 @@ h2 {
   background-color: #02b650;
 }
 
-/* Hide all elements related to traditional login and old extra links */
-.login-form,
-.form-group,
-.login-button,
-.error-message,
-.extra-links,
+
 .social-login-tabs { /* Ensure tabs are hidden too if only social buttons are desired */
   display: none !important; /* Use !important to override any specific display properties */
 }

@@ -38,20 +38,18 @@ function CreateEvent() {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.categoryId) newErrors.categoryId = '카테고리를 선택해주세요.';
-    if (!formData.locationId) newErrors.locationId = '장소를 선택해주세요.'; // locationId는 isOnline과 관계없이 필수라고 가정
+    // if (!formData.categoryId) newErrors.categoryId = '카테고리를 선택해주세요.';
+    // if (!formData.locationId) newErrors.locationId = '장소를 선택해주세요.'; // locationId는 isOnline과 관계없이 필수라고 가정
     if (!formData.name) newErrors.name = '이벤트명을 입력해주세요.';
     if (!formData.content) newErrors.content = '이벤트 내용을 입력해주세요.';
     if (!formData.startAt) newErrors.startAt = '이벤트 시작 일시를 입력해주세요.';
     if (!formData.endAt) newErrors.endAt = '이벤트 종료 일시를 입력해주세요.';
     if (!formData.capacity || parseInt(formData.capacity) <= 0) newErrors.capacity = '정원은 1 이상이어야 합니다.';
 
-    // isOnline이 false일 때만 locationDetail 유효성 검사
     if (!formData.isOnline && !formData.locationDetail) {
       newErrors.locationDetail = '주소 상세 정보를 입력해주세요.';
     }
 
-    // 날짜/시간 유효성 검사 (시작일시 < 종료일시)
     if (formData.startAt && formData.endAt) {
       const start = new Date(formData.startAt);
       const end = new Date(formData.endAt);
@@ -79,7 +77,7 @@ function CreateEvent() {
     <div className="create-event-container">
       <h1 className="create-event-title">새 이벤트 만들기</h1>
       <form onSubmit={handleSubmit} className="create-event-form">
-        <div className="form-group">
+        {/* <div className="form-group">
           <label htmlFor="categoryId">카테고리</label>
           <select
             id="categoryId"
@@ -109,7 +107,7 @@ function CreateEvent() {
             <option value="201">부산 해운대구</option>
           </select>
           {errors.locationId && <p className="error-message">{errors.locationId}</p>}
-        </div>
+        </div> */}
 
         <div className="form-group">
           <label htmlFor="name">이벤트명</label>
