@@ -1,9 +1,9 @@
-// src/components/EventListPage.js
-import React, { useState, useEffect } from 'react';
-import './EventListPage.css';
+// src/pages/EventListPage.js
+import React, { useState, useEffect, useRef } from 'react'; // useRef import 추가
+import './EventListPage.css'; // EventListPage 전용 CSS
 import { useNavigate } from 'react-router-dom';
 
-// 더미 이벤트 데이터 (EventDetailPage와 동일하게 유지)
+// 더미 이벤트 데이터 (이전과 동일하게 유지)
 const DUMMY_EVENTS = [
   {
     id: 1,
@@ -61,24 +61,64 @@ const DUMMY_EVENTS = [
   },
 ];
 
-function EventListPage() {
+// EventListPage는 onLogout prop을 받습니다.
+function EventListPage({ onLogout }) {
   const navigate = useNavigate();
   const [currentDate, setCurrentDate] = useState(new Date()); // 현재 달력의 기준 날짜 (월/년도)
   const [selectedDate, setSelectedDate] = useState(null); // 사용자가 선택한 달력 날짜
   const [ongoingEvents, setOngoingEvents] = useState([]); // 현재 진행 중인 이벤트 목록
   const [eventsForSelectedDate, setEventsForSelectedDate] = useState([]); // 선택된 날짜의 이벤트 목록
 
+  // 햄버거 메뉴 관련 상태 및 ref 추가 (MainHome에서 옮겨옴)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  // 햄버거 메뉴 외부 클릭 감지 useEffect (MainHome에서 옮겨옴)
   useEffect(() => {
-    const now = new Date();
+    function handleClickOutside(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [menuRef]);
+
+  // 햄버거 메뉴 토글 함수 (MainHome에서 옮겨옴)
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  // 개인정보 변경 핸들러 (MainHome에서 옮겨옴)
+  const handleChangeUserInfo = () => {
+    alert('개인정보 변경 페이지로 이동합니다. (실제 라우팅 필요)');
+    setIsMenuOpen(false);
+  };
+
+  // 로그아웃 핸들러 (MainHome에서 옮겨옴, App.js의 onLogout 호출)
+  const handleLogoutFromMenu = () => {
+    if (onLogout) {
+      onLogout(); // App.js에서 전달받은 onLogout 함수 호출
+    }
+    setIsMenuOpen(false);
+    // 로그아웃 후 로그인 페이지로 이동하는 로직은 App.js의 handleLogout이 담당
+  };
+
+  // 컴포넌트 마운트 시 및 selectedDate 변경 시 이벤트 필터링 로직 (기존과 동일)
+  useEffect(() => {
+    const now = new Date(); // 현재 시간
     const ongoing = DUMMY_EVENTS.filter(event => {
       const start = new Date(event.startAt);
       const end = new Date(event.endAt);
-      return now >= start && now <= end;
+      return now >= start && now <= end; // 시작 시간 <= 현재 시간 <= 종료 시간
     });
     setOngoingEvents(ongoing);
 
-    setSelectedDate(new Date()); // 컴포넌트 로드 시 오늘 날짜의 이벤트를 기본으로 표시
-  }, []);
+    // 컴포넌트 로드 시 (또는 페이지 진입 시) 오늘 날짜의 이벤트를 기본으로 표시
+    setSelectedDate(new Date());
+  }, []); // 빈 배열: 컴포넌트가 처음 마운트될 때만 실행
 
   useEffect(() => {
     if (selectedDate) {
@@ -94,7 +134,7 @@ function EventListPage() {
     } else {
       setEventsForSelectedDate([]);
     }
-  }, [selectedDate]);
+  }, [selectedDate]); // selectedDate가 변경될 때마다 실행
 
   const handleDateClick = (day) => {
     if (day) {
@@ -110,25 +150,36 @@ function EventListPage() {
     navigate(`/event/${eventId}`);
   };
 
+  // 달력 렌더링 로직 (기존과 동일)
   const renderCalendar = () => {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
-    const firstDayOfMonth = new Date(year, month, 1).getDay();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const firstDayOfMonth = new Date(year, month, 1).getDay(); // 해당 월의 첫 날 요일 (0:일, 1:월 ...)
+    const daysInMonth = new Date(year, month + 1, 0).getDate(); // 해당 월의 마지막 날 (총 일수)
 
     const calendarDays = [];
     for (let i = 0; i < firstDayOfMonth; i++) {
-      calendarDays.push(null);
+      calendarDays.push(null); // 빈 칸 채우기
     }
     for (let i = 1; i <= daysInMonth; i++) {
-      calendarDays.push(i);
+      calendarDays.push(i); // 날짜 채우기
     }
 
     const rows = [];
     let cells = [];
 
     calendarDays.forEach((day, index) => {
-      const isToday = selectedDate && year === selectedDate.getFullYear() && month === selectedDate.getMonth() && day === selectedDate.getDate();
+      const today = new Date(); // 실제 오늘 날짜
+      const isCurrentRealToday = day === today.getDate() &&
+                                 month === today.getMonth() &&
+                                 year === today.getFullYear();
+
+      const isSelectedDay = selectedDate && // 선택된 날짜가 있고
+                            day === selectedDate.getDate() &&
+                            month === selectedDate.getMonth() &&
+                            year === selectedDate.getFullYear();
+
+      // 해당 날짜에 이벤트가 있는지 확인
       const hasEvent = day && DUMMY_EVENTS.some(event => {
         const eventDate = new Date(event.startAt);
         return eventDate.getFullYear() === year && eventDate.getMonth() === month && eventDate.getDate() === day;
@@ -137,7 +188,7 @@ function EventListPage() {
       cells.push(
         <td
           key={index}
-          className={`calendar-day ${day ? '' : 'empty'} ${isToday ? 'selected' : ''} ${hasEvent ? 'has-event' : ''}`}
+          className={`calendar-day ${day ? '' : 'empty'} ${isSelectedDay ? 'selected' : ''} ${hasEvent ? 'has-event' : ''} ${isCurrentRealToday ? 'current-real-today' : ''}`}
           onClick={() => handleDateClick(day)}
         >
           {day}
@@ -150,7 +201,7 @@ function EventListPage() {
       }
     });
 
-    if (cells.length > 0) {
+    if (cells.length > 0) { // 마지막 줄 채우기
       while (cells.length < 7) {
         cells.push(<td key={cells.length} className="calendar-day empty"></td>);
       }
@@ -171,29 +222,51 @@ function EventListPage() {
     );
   };
 
+  // 월 변경 함수 (기존과 동일)
   const changeMonth = (delta) => {
     setCurrentDate(prevDate => {
       const newDate = new Date(prevDate);
       newDate.setMonth(prevDate.getMonth() + delta);
+      const today = new Date(); // 실제 오늘 날짜로 돌아갈 로직
+      if (newDate.getFullYear() === today.getFullYear() && newDate.getMonth() === today.getMonth()) {
+        setSelectedDate(today); // 현재 달로 돌아오면 오늘 날짜 선택
+      } else {
+        setSelectedDate(null); // 다른 달로 이동하면 선택 해제
+      }
       return newDate;
     });
   };
 
   return (
-    <div className="event-list-container">
+    <div className="event-list-container" ref={menuRef}> {/* 햄버거 메뉴를 위해 ref 연결 */}
+      {/* 햄버거 메뉴 버튼 (MainHome에서 옮겨옴) */}
+      <button className='menu-button' onClick={toggleMenu} style={{ position: 'absolute', top: '20px', right: '20px' }}>
+        <svg className='menu-icon' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </button>
+
+      {/* 햄버거 메뉴 드롭다운 (MainHome에서 옮겨옴) */}
+      <ul className={`dropdown-menu ${isMenuOpen ? '' : 'hidden'}`} style={{ position: 'absolute', top: '60px', right: '20px', backgroundColor: 'white', border: '1px solid #ccc', listStyle: 'none', padding: '10px', zIndex: 100, borderRadius: '4px', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
+        <li className='dropdown-item' onClick={handleChangeUserInfo} style={{ padding: '8px 12px', cursor: 'pointer', '&:hover': { backgroundColor: '#f0f0f0' } }}>개인정보 변경</li>
+        <li className='dropdown-item' onClick={handleLogoutFromMenu} style={{ padding: '8px 12px', cursor: 'pointer', '&:hover': { backgroundColor: '#f0f0f0' } }}>로그아웃</li>
+      </ul>
+
+      {/* 페이지 제목 */}
       <h1 className="page-title">이벤트 참석하기</h1>
 
       <div className="content-wrapper">
         <div className="calendar-section">
-          <h2>
+          <div className="calendar-header">
             <button onClick={() => changeMonth(-1)} className="nav-button">&lt;</button>
-            {currentDate.getFullYear()}년 {currentDate.getMonth() + 1}월
+            <h2 className="current-month-year">{currentDate.getFullYear()}년 {currentDate.getMonth() + 1}월</h2>
             <button onClick={() => changeMonth(1)} className="nav-button">&gt;</button>
-          </h2>
+          </div>
           {renderCalendar()}
         </div>
 
         <div className="event-details-section">
+          {/* 현재 진행 중인 이벤트 섹션 */}
           <div className="event-list-card">
             <h3>현재 진행 중인 이벤트</h3>
             {ongoingEvents.length > 0 ? (
@@ -212,6 +285,7 @@ function EventListPage() {
             )}
           </div>
 
+          {/* 선택된 날짜의 이벤트 섹션 */}
           <div className="event-list-card">
             <h3>
               {selectedDate
@@ -235,7 +309,8 @@ function EventListPage() {
           </div>
         </div>
       </div>
-      <button className="back-button" onClick={() => navigate('/')}>메인으로 돌아가기</button>
+      {/* '메인으로 돌아가기' 버튼은 이제 EventListPage 자체가 메인 페이지이므로 제거하는 것이 자연스럽습니다. */}
+      {/* <button className="back-button" onClick={() => navigate('/')}>메인으로 돌아가기</button> */}
     </div>
   );
 }

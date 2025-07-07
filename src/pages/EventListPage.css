@@ -8,6 +8,7 @@
   background-color: #f7f9fc;
   min-height: 100vh;
   font-family: Arial, sans-serif;
+  position: relative; /* 햄버거 메뉴를 위해 relative로 설정 */
 }
 
 .page-title {
@@ -35,15 +36,29 @@
   margin-bottom: 20px;
 }
 
-.calendar-section h2 {
+/* calendar-header 스타일 수정 */
+.calendar-section .calendar-header {
   text-align: center;
   margin-bottom: 20px;
   color: #555;
   font-size: 1.5rem;
+  /* flex 속성을 h2에서 calendar-header로 이동 */
   display: flex;
-  justify-content: center;
+  justify-content: center; /* 전체 헤더를 중앙 정렬 */
   align-items: center;
-  gap: 15px;
+  gap: 5%;
+}
+
+/* h2 태그 자체는 이제 내부 요소들을 정렬합니다. */
+.calendar-section .current-month-year { /* 새로운 클래스명 사용 */
+  display: flex; /* 내부 요소들을 가로로 정렬 */
+  justify-content: center; /* 버튼과 텍스트를 중앙 정렬 */
+  align-items: center;
+  gap: 15px; /* 버튼과 텍스트 사이 간격 */
+  font-size: 1.5rem; /* 기존 h2의 폰트 사이즈 유지 */
+  margin: 0; /* 기본 마진 제거 */
+  padding: 0; /* 기본 패딩 제거 */
+  color: #555; /* 색상 유지 */
 }
 
 .calendar-section .nav-button {
@@ -184,7 +199,7 @@
   margin-bottom: 3px;
 }
 
-.back-button {
+.back-button { /* 이 버튼은 이제 사용되지 않습니다. */
   margin-top: 40px;
   padding: 12px 25px;
   background-color: #FFA5A5;
@@ -202,6 +217,54 @@
   transform: translateY(-2px);
 }
 
+/* 햄버거 메뉴 및 드롭다운 스타일 (EventListPage에 추가되었으므로 필요) */
+.menu-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 101; /* 드롭다운 메뉴보다 위에 오도록 */
+}
+
+.menu-button .menu-icon {
+  width: 24px;
+  height: 24px;
+  color: #333; /* 아이콘 색상 */
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 60px; /* 버튼 아래 위치 */
+  right: 20px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 10px 0; /* 상하 패딩 조정 */
+  margin: 0;
+  z-index: 100;
+  min-width: 150px; /* 메뉴 최소 너비 */
+}
+
+.dropdown-menu.hidden {
+  display: none;
+}
+
+.dropdown-item {
+  padding: 8px 15px; /* 좌우 패딩 추가 */
+  cursor: pointer;
+  color: #333;
+  transition: background-color 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
 @media (max-width: 768px) {
   .content-wrapper {
     flex-direction: column;
@@ -211,4 +274,23 @@
     width: 100%;
     min-width: unset;
   }
+  .menu-button {
+    top: 15px;
+    right: 15px;
+  }
+  .dropdown-menu {
+    top: 50px;
+    right: 15px;
+  }
+}
+
+/* 현재 선택된 날짜 (실제 오늘 날짜)에 대한 시각적 표시 */
+.calendar-table td.current-real-today {
+  border: 2px solid #007bff; /* 파란색 테두리 */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* 그림자 효과 */
+}
+/* 선택된 날짜와 실제 오늘 날짜가 겹칠 때 */
+.calendar-table td.selected.current-real-today {
+    background-color: #FFA5A5; /* 선택된 날짜 색상 */
+    border: 2px solid #ff8c8c; /* 강조된 테두리 */
 }
