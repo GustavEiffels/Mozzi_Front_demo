@@ -1,0 +1,280 @@
+/* src/pages/MyEventsPage.css */
+
+.my-events-container {
+  padding: 30px;
+  background-color: #f7f9fc;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  color: #333;
+  box-sizing: border-box;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.my-events-title {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 40px;
+  text-align: left;
+  padding-left: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.my-events-section {
+  background-color: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  margin-bottom: 25px;
+  width: calc(100% - 40px);
+  max-width: 800px;
+  margin-left: 20px;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.section-title {
+  font-size: 1.3rem;
+  color: #444;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  text-align: left;
+}
+
+/* 스크롤 영역 스타일 */
+.event-list-scroll-area {
+  max-height: 400px; /* 스크롤이 생길 높이 (원하는 높이로 조절) */
+  overflow-y: auto; /* 세로 스크롤 적용 */
+  padding-right: 10px; /* 스크롤바와 내용 간의 여백 */
+  box-sizing: border-box;
+}
+
+/* 스크롤바 커스터마이징 (Webkit 브라우저 - Chrome, Safari 등) */
+.event-list-scroll-area::-webkit-scrollbar {
+  width: 8px; /* 스크롤바 너비 */
+}
+
+.event-list-scroll-area::-webkit-scrollbar-track {
+  background: #f1f1f1; /* 트랙 배경색 */
+  border-radius: 10px;
+}
+
+.event-list-scroll-area::-webkit-scrollbar-thumb {
+  background: #FFA5A5; /* 스크롤바 색상 (분홍색) */
+  border-radius: 10px;
+}
+
+.event-list-scroll-area::-webkit-scrollbar-thumb:hover {
+  background: #ff8c8c; /* 호버 시 스크롤바 색상 */
+}
+
+/* Firefox 스크롤바 스타일 */
+.event-list-scroll-area {
+  scrollbar-width: thin; /* "auto" 또는 "none" */
+  scrollbar-color: #FFA5A5 #f1f1f1; /* thumb color track color */
+}
+
+
+.event-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.event-item {
+  background-color: #fcfcfc;
+  margin-bottom: 15px;
+  padding: 15px;
+  border: 1px solid #e9e9e9;
+  border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.03);
+  transition: all 0.2s ease-in-out; /* 모든 속성에 부드러운 전환 효과 */
+  text-align: left;
+  position: relative; /* 취소 버튼 오버레이를 위한 relative */
+  overflow: hidden; /* 오버레이가 넘치지 않도록 */
+}
+
+/* 이벤트 아이템 호버 시 블러 및 그림자 효과 */
+.cancellable-item:hover { /* cancellable-item에만 적용 */
+  filter: blur(0.5px); /* 약간의 블러 효과 */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 그림자 강하게 */
+  background-color: #fcfcfc; /* 배경색은 그대로 유지 */
+}
+
+/* 과거 이벤트는 호버 블러 적용 안함 */
+.event-item.past:hover {
+  filter: none; /* 블러 효과 제거 */
+  background-color: #ececec; /* 기존 호버 색상 유지 */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03); /* 기존 그림자 유지 */
+}
+
+
+.event-item:last-child {
+  margin-bottom: 0;
+}
+
+/* 이벤트 이름 색상 변경 */
+.event-item strong {
+  font-size: 1.1rem;
+  color: #FFA5A5; /* 이벤트 이름 분홍색으로 변경 */
+  display: block;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.event-item p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 3px;
+  text-align: left;
+}
+
+/* 지난 예약 내역에 대한 스타일 */
+.event-item.past {
+  background-color: #f7f7f7;
+  border-color: #e0e0e0;
+  color: #888;
+}
+
+.event-item.past strong,
+.event-item.past p {
+  color: #888;
+}
+
+.event-item.past strong { /* 과거 이벤트 이름 색상도 통일성 있게 */
+  color: #ffb8b8; /* 과거 이벤트 이름은 연한 분홍색 */
+}
+
+
+.no-events-message {
+  text-align: left;
+  color: #888;
+  padding: 20px;
+  background-color: #fefefe;
+  border: 1px dashed #ddd;
+  border-radius: 5px;
+  margin-top: 15px;
+  font-size: 1rem;
+}
+
+.back-to-list-button {
+  display: block;
+  width: fit-content;
+  margin: 30px auto 0 20px;
+  padding: 12px 25px;
+  background-color: #FFA5A5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-to-list-button:hover {
+  background-color: #ff8c8c;
+  transform: translateY(-2px);
+}
+
+/* 취소 버튼 오버레이 스타일 */
+.cancellable-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.cancel-button-overlay {
+  position: absolute;
+  top: 0; /* 오버레이가 전체 아이템을 덮도록 */
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7); /* 흰색 반투명 오버레이 (블러와 함께 보이기 위함) */
+  display: flex;
+  justify-content: flex-end; /* 오른쪽 정렬 */
+  align-items: flex-end; /* 하단 정렬 */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1; /* 이벤트 내용 위에 오도록 설정 */
+}
+
+.cancellable-item:hover .cancel-button-overlay {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.cancel-button {
+  background-color: #FFA5A5; /* 분홍색 바탕 */
+  color: white; /* 흰 글씨 */
+  border: none;
+  border-radius: 5px;
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-right: 15px; /* 오른쪽 여백 */
+  margin-bottom: 15px; /* 하단 여백 */
+  z-index: 2; /* 오버레이보다 위에 오도록 설정 */
+}
+
+.cancel-button:hover {
+  background-color: #ff8c8c; /* 호버 시 더 진한 분홍색 */
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .my-events-container {
+    padding: 20px;
+    width: 100%;
+  }
+
+  .my-events-title {
+    font-size: 2rem;
+    padding-left: 0;
+    text-align: center;
+  }
+
+  .my-events-section {
+    width: 100%;
+    padding: 15px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .section-title {
+    font-size: 1.2rem;
+  }
+
+  .event-item strong {
+    font-size: 1em;
+  }
+
+  .event-item p {
+    font-size: 0.85em;
+  }
+
+  .back-to-list-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin: 30px auto 0 auto;
+  }
+
+  /* 작은 화면에서 스크롤 영역 높이 조정 */
+  .event-list-scroll-area {
+    max-height: 300px;
+  }
+
+  /* 작은 화면에서 취소 버튼 오버레이 위치 조정 */
+  .cancel-button-overlay {
+    justify-content: center; /* 가운데 정렬 */
+    align-items: center; /* 가운데 정렬 */
+  }
+  .cancel-button {
+    margin: 0; /* 여백 제거 */
+  }
+}

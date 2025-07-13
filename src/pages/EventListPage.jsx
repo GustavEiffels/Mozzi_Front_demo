@@ -1,4 +1,3 @@
-// src/pages/EventListPage.js
 import React, { useState, useEffect, useRef } from 'react'; // useRef import 추가
 import './EventListPage.css'; // EventListPage 전용 CSS
 import { useNavigate } from 'react-router-dom';
@@ -96,7 +95,7 @@ function EventListPage({ onLogout }) {
   };
 
   const handleChangeEventInfo = () => {
-    alert('이벤트 리스트들');
+    navigate('/my-events'); // 나의 이벤트 페이지로 이동
     setIsMenuOpen(false);
   };
 

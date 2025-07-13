@@ -4,11 +4,10 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import LoginPage from './components/LoginPage';
-// MainHome은 더 이상 메인 페이지로 사용되지 않으므로 import 하지 않거나 삭제합니다.
-// import MainHome from './pages/MainHome';
 import CreateEvent from './pages/CreateEvent';
 import EventListPage from './pages/EventListPage'; // EventListPage를 메인 경로에 연결
 import EventDetailPage from './components/EventDetailPage';
+import MyEventsPage from './pages/MyEventsPage'; 
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -59,6 +58,8 @@ function App() {
             path="/event/:eventId"
             element={isLoggedIn ? <EventDetailPage /> : <Navigate to="/" replace />}
           />
+
+          <Route path="/my-events" element={<MyEventsPage />} /> {/* New Route for MyEventsPage */}
 
           {/* 정의되지 않은 모든 경로를 '/'로 리다이렉트 */}
           <Route path="*" element={<Navigate to="/" replace />} />
