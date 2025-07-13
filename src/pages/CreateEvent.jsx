@@ -77,37 +77,7 @@ function CreateEvent() {
     <div className="create-event-container">
       <h1 className="create-event-title">새 이벤트 만들기</h1>
       <form onSubmit={handleSubmit} className="create-event-form">
-        {/* <div className="form-group">
-          <label htmlFor="categoryId">카테고리</label>
-          <select
-            id="categoryId"
-            name="categoryId"
-            value={formData.categoryId}
-            onChange={handleChange}
-          >
-            <option value="">선택</option>
-            <option value="1">운동</option>
-            <option value="2">스터디</option>
-            <option value="3">음악</option>
-          </select>
-          {errors.categoryId && <p className="error-message">{errors.categoryId}</p>}
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="locationId">장소</label>
-          <select
-            id="locationId"
-            name="locationId"
-            value={formData.locationId}
-            onChange={handleChange}
-          >
-            <option value="">선택</option>
-            <option value="101">서울 강남구</option>
-            <option value="102">서울 마포구</option>
-            <option value="201">부산 해운대구</option>
-          </select>
-          {errors.locationId && <p className="error-message">{errors.locationId}</p>}
-        </div> */}
+      
 
         <div className="form-group">
           <label htmlFor="name">이벤트명</label>
@@ -206,9 +176,8 @@ function CreateEvent() {
             value={formData.locationDetail}
             onChange={handleChange}
             placeholder="상세 주소를 입력하세요"
-            disabled={formData.isOnline} // isOnline이 true이면 비활성화
+            disabled={formData.isOnline} 
           />
-          {/* isOnline이 false일 때만 유효성 검사 메시지 표시 */}
           {!formData.isOnline && errors.locationDetail && (
             <p className="error-message">{errors.locationDetail}</p>
           )}

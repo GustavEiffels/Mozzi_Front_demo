@@ -69,11 +69,9 @@ function EventListPage({ onLogout }) {
   const [ongoingEvents, setOngoingEvents] = useState([]); // 현재 진행 중인 이벤트 목록
   const [eventsForSelectedDate, setEventsForSelectedDate] = useState([]); // 선택된 날짜의 이벤트 목록
 
-  // 햄버거 메뉴 관련 상태 및 ref 추가 (MainHome에서 옮겨옴)
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
-  // 햄버거 메뉴 외부 클릭 감지 useEffect (MainHome에서 옮겨옴)
   useEffect(() => {
     function handleClickOutside(event) {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -97,7 +95,12 @@ function EventListPage({ onLogout }) {
     setIsMenuOpen(false);
   };
 
-  // 로그아웃 핸들러 (MainHome에서 옮겨옴, App.js의 onLogout 호출)
+  const handleChangeEventInfo = () => {
+    alert('이벤트 리스트들');
+    setIsMenuOpen(false);
+  };
+
+
   const handleLogoutFromMenu = () => {
     if (onLogout) {
       onLogout(); // App.js에서 전달받은 onLogout 함수 호출
@@ -249,6 +252,7 @@ function EventListPage({ onLogout }) {
       {/* 햄버거 메뉴 드롭다운 (MainHome에서 옮겨옴) */}
       <ul className={`dropdown-menu ${isMenuOpen ? '' : 'hidden'}`} style={{ position: 'absolute', top: '60px', right: '20px', backgroundColor: 'white', border: '1px solid #ccc', listStyle: 'none', padding: '10px', zIndex: 100, borderRadius: '4px', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
         <li className='dropdown-item' onClick={handleChangeUserInfo} style={{ padding: '8px 12px', cursor: 'pointer', '&:hover': { backgroundColor: '#f0f0f0' } }}>개인정보 변경</li>
+        <li className='dropdown-item' onClick={handleChangeEventInfo} style={{ padding: '8px 12px', cursor: 'pointer', '&:hover': { backgroundColor: '#f0f0f0' } }}>나의 이벤트</li>
         <li className='dropdown-item' onClick={handleLogoutFromMenu} style={{ padding: '8px 12px', cursor: 'pointer', '&:hover': { backgroundColor: '#f0f0f0' } }}>로그아웃</li>
       </ul>
 
