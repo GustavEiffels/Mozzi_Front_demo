@@ -6,7 +6,7 @@
   background-color: #f7f9fc;
   min-height: 100vh;
   font-family: Arial, sans-serif,'BMDOHYEON';
-  
+
 }
 
 .create-event-title {
@@ -24,7 +24,7 @@
   max-width: 600px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 20px; /* 폼 그룹 간의 간격 유지 */
 }
 
 .form-group {
@@ -32,7 +32,7 @@
   display: flex;
   flex-direction: column;
   align-items: baseline;
-  margin-bottom: 2%;
+  /* margin-bottom: 2%; */ /* 이 부분을 제거하거나 0으로 설정하여 버튼 그룹과의 간섭을 줄임 */
 }
 
 .form-group label {
@@ -82,7 +82,18 @@
   margin-top: 5px;
 }
 
-.submit-button, .cancel-button {
+/* 새로운 버튼 그룹 스타일: 가로 정렬 */
+.button-group {
+  display: flex; /* Flexbox로 설정 */
+  flex-direction: row; /* 버튼을 가로로 나열 */
+  gap: 15px; /* 버튼 간의 간격 (조정 가능) */
+  width: 100%; /* 부모와 동일한 너비 */
+  margin-top: 20px; /* 폼 그룹과의 상단 간격 (조정 가능) */
+  justify-content: space-between; /* 버튼들을 양 끝으로 정렬하거나 space-around/center 등으로 조정 */
+  align-items: center; /* 세로 중앙 정렬 */
+}
+
+.submit-button, .create-cancel-button {
   padding: 15px 20px;
   border: none;
   border-radius: 8px;
@@ -90,8 +101,11 @@
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  width: 100%;
-  margin-top: 10px;
+  flex: 1; /* flex-grow를 1로 설정하여 사용 가능한 공간을 동일하게 분배 */
+  /* width: 100%; */ /* flex: 1;을 사용하면 필요 없음 */
+  /* margin-top: 2px; */ /* 이 부분을 제거합니다. */
+  max-width: 50%; /* 각 버튼의 최대 너비를 50%로 설정하여 너무 커지는 것을 방지 */
+  min-width: 150px; /* 버튼이 너무 작아지지 않도록 최소 너비 설정 */
 }
 
 .submit-button {
@@ -104,12 +118,25 @@
   transform: translateY(-2px);
 }
 
-.cancel-button {
+.create-cancel-button {
   background-color: #ccc;
   color: #333;
 }
 
-.cancel-button:hover {
+.create-cancel-button:hover {
   background-color: #bbb;
   transform: translateY(-2px);
+}
+
+/* 반응형 디자인: 작은 화면에서는 다시 세로로 정렬 */
+@media (max-width: 600px) {
+  .button-group {
+    flex-direction: column; /* 작은 화면에서는 다시 세로로 나열 */
+    gap: 10px;
+  }
+  .submit-button, .create-cancel-button {
+    width: 100%; /* 작은 화면에서는 전체 너비 사용 */
+    max-width: none; /* 최대 너비 제한 해제 */
+    min-width: unset; /* 최소 너비 제한 해제 */
+  }
 }

@@ -30,7 +30,7 @@ function CreateEvent() {
       };
 
       if (name === 'isOnline' && checked) {
-        newFormData.locationDetail = ''; 
+        newFormData.locationDetail = '';
       }
       return newFormData;
     });
@@ -77,7 +77,7 @@ function CreateEvent() {
     <div className="create-event-container">
       <h1 className="create-event-title">새 이벤트 만들기</h1>
       <form onSubmit={handleSubmit} className="create-event-form">
-      
+
 
         <div className="form-group">
           <label htmlFor="name">이벤트명</label>
@@ -176,15 +176,18 @@ function CreateEvent() {
             value={formData.locationDetail}
             onChange={handleChange}
             placeholder="상세 주소를 입력하세요"
-            disabled={formData.isOnline} 
+            disabled={formData.isOnline}
           />
           {!formData.isOnline && errors.locationDetail && (
             <p className="error-message">{errors.locationDetail}</p>
           )}
         </div>
 
-        <button type="submit" className="submit-button">이벤트 생성</button>
-        <button type="button" className="cancel-button" onClick={() => navigate('/')}>취소</button>
+        {/* 버튼들을 감싸는 div */}
+        <div className="button-group">
+          <button type="submit" className="submit-button">이벤트 생성</button>
+          <button type="button" className="create-cancel-button" onClick={() => navigate('/')}>취소</button>
+        </div>
       </form>
     </div>
   );

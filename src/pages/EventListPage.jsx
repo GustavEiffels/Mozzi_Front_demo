@@ -239,6 +239,11 @@ function EventListPage({ onLogout }) {
     });
   };
 
+  // 이벤트 생성 버튼 클릭 핸들러
+  const handleCreateEventClick = () => {
+    navigate('/create-event');
+  };
+
   return (
     <div className="event-list-container" ref={menuRef}> {/* 햄버거 메뉴를 위해 ref 연결 */}
       {/* 햄버거 메뉴 버튼 (MainHome에서 옮겨옴) */}
@@ -312,8 +317,10 @@ function EventListPage({ onLogout }) {
           </div>
         </div>
       </div>
-      {/* '메인으로 돌아가기' 버튼은 이제 EventListPage 자체가 메인 페이지이므로 제거하는 것이 자연스럽습니다. */}
-      {/* <button className="back-button" onClick={() => navigate('/')}>메인으로 돌아가기</button> */}
+      {/* 새로운 이벤트 생성 버튼 */}
+      <button className="create-event-button" onClick={handleCreateEventClick}>
+        +
+      </button>
     </div>
   );
 }
