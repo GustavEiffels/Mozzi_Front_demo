@@ -9,6 +9,12 @@ function LoginPage({ onLoginSuccess }) {
  
   const handleSocialLogin = (provider)=>{
     console.log(`${provider} login`)
+
+    if ( provider === 'Kakao' ){
+        const kakaoAuthUrl = "http://localhost:8080/oauth2/authorization/kakao";
+        window.location.href = kakaoAuthUrl;
+    }
+
     if (onLoginSuccess) { 
         onLoginSuccess();
       }
